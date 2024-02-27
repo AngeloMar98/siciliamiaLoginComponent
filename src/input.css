@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-lightGrayCyan2;
+  }
+}
+
+@layer component {
+  .bg-box {
+    background: linear-gradient(hsl(180, 29%, 50%), #fff);
+  }
+
+  .custom-shadow {
+    box-shadow: 0 34px 69px 0px #0000037d;
+  }
+}
