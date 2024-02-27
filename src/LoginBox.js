@@ -11,6 +11,7 @@ The LoginBox servers two purposes:
 */
 
 export function LoginBox() {
+  // We need this state to display the right content to the user, depending if they completed the form or not
   const [formCompleted, setFormCompleted] = useState(false);
   const [email, setEmail] = useState("");
   return (
