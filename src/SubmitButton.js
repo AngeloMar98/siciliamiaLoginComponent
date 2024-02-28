@@ -13,7 +13,7 @@ export function SubmitButton() {
       type="submit"
       value="Submit"
     >
-      Subscribe!
+      Submit
     </button>
   );
 }

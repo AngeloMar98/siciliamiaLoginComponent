@@ -30,6 +30,7 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
         id="submit-form"
         // The event fired when the fields are valid
         onSubmit={(e) => {
+          console.log("hello");
           e.preventDefault();
           // Sets the value to true, in <LoginBox/> the content will swap with the confirmation message
           setFormCompleted(true);
@@ -58,7 +59,6 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
           <div className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="ionicon"
               viewBox="0 0 512 512"
               className="w-[20px] top-[3px] translate-y-1/2 absolute left-[10px]"
             >
@@ -71,16 +71,16 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
                 ry="40"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="32"
               />
               <path
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="32"
                 d="M112 160l144 112 144-112"
               />
             </svg>
@@ -93,7 +93,13 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
               }`}
               value={email}
               type="email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                // on change we change the value of course, and check if we need to remove
+                // the invalidation, as soon as the user inserts the data in the right format
+                // it's reset to false
+                if (e.target.validity.valid) setEmailInvalid(false);
+                setEmail(e.target.value);
+              }}
               onInvalid={(e) => {
                 e.preventDefault();
                 setEmailInvalid(true);
@@ -122,7 +128,6 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
           <div className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="ionicon"
               viewBox="0 0 512 512"
               className="w-[20px] top-[3px] translate-y-1/2 absolute left-[10px]"
             >
@@ -130,9 +135,9 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
                 d="M336 208v-95a80 80 0 00-160 0v95"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="32"
               />
               <rect
                 x="96"
@@ -143,9 +148,9 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
                 ry="48"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="32"
               />
             </svg>
             <input
@@ -153,6 +158,7 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
               required
               placeholder="8 or more characters"
               minLength={8}
+              pattern=".{8,}"
               className={`border-2
              border-darkerGrayCyan w-full rounded-md py-2 px-4 pl-8  font-medium hover:cursor-pointer ${
                passwordInvalid ? "border-red-600" : ""
@@ -161,7 +167,10 @@ export function LoginForm({ setFormCompleted, email, setEmail }) {
               // the normal password in the state
               value={hiddenPassword}
               type="text"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                if (e.target.validity.valid) setPasswordInvalid(false);
+                setPassword(e.target.value);
+              }}
               onInvalid={(e) => {
                 e.preventDefault();
                 setPasswordInvalid(true);
